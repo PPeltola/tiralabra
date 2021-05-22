@@ -1,4 +1,4 @@
-### Subject
+### Perceptrons & more
 
 I plan on implementing some quite basic neural nets, starting from a single perceptron and then combining them to make layers. I want to experiment with different simple designs (i.e. linear transformations vs affine transformations) and activation functions (i.e. step vs sigmoid vs relu vs softmax). I plan on training the models using some well-known training dataset or datasets, like the [MNIST](http://yann.lecun.com/exdb/mnist/) data of handwriten digits. At this point I'm not entirely sure on what dataset I will end up using to compare my models to 'real' neural nets, but I'm sure I can find some simpler sets than MNIST if needed. If I have time or if the project scope is too small like this, I could dive into some more complex things like backpropagation. I'm quite new to neural nets myself so this is learing experience for me on that front too, but I'm quite interested in the topic. I'll update this document as I understand the topic and the challenges with different approaches better.
 
