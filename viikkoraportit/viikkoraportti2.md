@@ -1,0 +1,5 @@
+Tällä viikolla en valitettavasti ehtinyt kunnolla tekemään projektia, sillä kandi piti viimestellä ja sen jälkeen hoitaa joitain tärkeitä rästiin jääneitä muita asioita. Nyt perjantaina kuitenkin pääsin vihdoin hieman koodaamaankin, mutta valitettavasti ohjelman tämänhetkinen runko jäi nyt raakileeksi. Ohjelma ei tällä hetkellä toimi, mutta vektorin ja yksinkertaisen perseptronin toimintaa ehdin hieman luoda. Luin paljon perseptronin toimintaperiaattesta ja koen ymmärtäväni kuinka yksinkertainen perseptroni toteutetaan. Testaus uupuu vielä kokonaan valitettavasti. Seuraavaksi aion saada yksinkertaisen perseptronin toimimaan kokonaan, aloittaa testauksen ja luoda pari erillistä yksinkertaista aktivaatiofunktiota (sigmoidi, relu). Olisi myös kivaa päästä tekemään perseptroneista kerroksia ja/tai löytää parempaa dataa jolla kokeilla toteutettujen ratkaisujen toimivuutta. Ensi viikolla minun pitäisi vihdoin ehtiä työstämään projektia ajan kanssa.
+
+Viikolla käytetty aika:
+Torstai - 1h, suunnittelua ja aiheesta lukemista
+Perjantai, 6h, paljon aiheeseen perehtymistä ja mvp-ratkaisun miettimistä, koodausta
