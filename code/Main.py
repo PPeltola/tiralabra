@@ -1,19 +1,25 @@
 from Vector import Vector
 from Perceptron import Perceptron
 
+
+# As a test, let's simulate the OR-gate
 training = []
 training.append(Vector(2, arr=[1, 1]))
 training.append(Vector(2, arr=[1, 0]))
 training.append(Vector(2, arr=[0, 1]))
 training.append(Vector(2, arr=[0, 0]))
 
-labels = Vector(4, arr=[1, 0, 0, 0])
+labels = Vector(4, arr=[1, 1, 1, 0])
 
-tron = Perceptron(1000, 0.05, 2)
+tron = Perceptron(2, 100, 0.05)
 tron.train(training, labels)
 
-inputs_true = Vector(2, [1, 1])
-print(tron.predict(inputs_true))
+both_true = Vector(2, arr=[1, 1])
+right_true = Vector(2, arr=[0, 1])
+left_true= Vector(2, arr=[1, 0])
+both_false = Vector(2, arr=[0, 0])
 
-inputs_false = Vector(2, [0, 1])
-print(tron.predict(inputs_false))
+print(tron.predict(both_true))
+print(tron.predict(right_true))
+print(tron.predict(left_true))
+print(tron.predict(both_false))
