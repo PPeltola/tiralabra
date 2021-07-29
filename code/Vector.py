@@ -14,21 +14,30 @@ class Vector:
     
     def __getitem__(self, key):
         return self.vector[key]
+    
+    def __len__(self):
+        return self.length
 
-    def addnum(self, x) -> None:
+    def addnum(self, x):
+        ret = []
         for i in range(self.length):
-            self.vector[i] += x
+            ret.append(self.vector[i] + x)
+        return Vector(self.length, arr=ret)
 
-    def addvec(self, vec) -> None:
+    def addvec(self, vec):
         if (self.length != vec.length):
             raise Exception("Vectors are of unequal size!")
         
+        ret = []
         for i in range(self.length):
-            self.vector[i] += vec.vector[i]
+            ret.append(self.vector[i] + vec.vector[i])
+        return Vector(self.length, arr=ret)
     
     def mulnum(self, x):
+        ret = []
         for i in range(self.length):
-            self.vector[i] = self.vector[i] * x
+            ret.append(self.vector[i] * x)
+        return Vector(self.length, arr=ret)
     
     def dot(self, vec) -> int:
         if (self.length != vec.length):
