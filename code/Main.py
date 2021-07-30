@@ -34,4 +34,4 @@ labels = Data.read_labels('test')
 UI.draw_image(images[1234], "testi")
 print(labels[1234]) """
 
-#print(Loss.quadratic(Vector(4, arr=[1, 2, 3, 4]), Vector(4, arr=[1, 2, 2, 2])))
+print(Vector(4, arr=[1, 2, 3, 4]) * Vector(4, arr=[1, 2, 2, 2]))

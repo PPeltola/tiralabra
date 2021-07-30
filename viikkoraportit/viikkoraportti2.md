@@ -1,1 +1,7 @@
-todo
+30.7.
+
+Alkuviikosta perehdyin MNIST-dataan, ja toteutin sen lukemisen luokkaan Data.py. Lukemiseen olisi ollut olemassa valmiskin kirjasto, mutta se oli loppujen lopksi sen verran yksinkertaista että oman ratkaisun luominen oli mukavaa puuhastelua. Kuvien piirtämiseen luetusta datasta tein nopean ratkaisun joka hyödyntää numpy- ja pillow-kirjastoja, käsittääkseni UI:n toteutuksessa niitä saa hyödyntää? Refaktoroin myös olemassa olevaa koodia, mm. vektori-luokan toiminnalisuuden vastaamaan suoraan Pythonin yhteen-, vähennys- sekä kertolaskuihin erillisten funktioiden sijaan. Testauksesta en ole vielä ottanut selvää.
+
+Loppuviikosta perehdyin backpropagationin toimintaan. Se osoittautuikin melko monimutkaiseksi algoritmiksi, mutta koen (nyt parin päivän lueskelun jälkeen) ymmärtäväni miten se nojaa vahvasti derivoinnin ketjusääntöön, ja kuinka sen pystyisi toteuttamaan rekursiivisesti kerros kerrokselta. Tajusin lukiessani, että erillisten neuroni-objektien (jotka tietävät vain oman painovektorinsa) sijaan kannattaisi ehkä toteuttaa painovektorit joka kerrokselle vain yhtenä suurena painomatriisina (näin käsittääkseni valmiit toteutukset sen tekevät). Matriisitoteutus olisi ymmärtääkseni suorituskyvyltään parempi, mutta hieman haastavampi toteuttaa. Ajattelin ensi viikolla tai nyt viikonloppuna kokeilla saisinko objektipohjaisen toteutuksen tehtyä ja sen jälkeen testata kuinka hitaasti se toimii.
+
+Tällä viikolla käytin aikaa projektiin n. 16 tuntia, joista n. 10 oli esitietoihin perehtymistä.

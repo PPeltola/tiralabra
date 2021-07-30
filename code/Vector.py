@@ -5,45 +5,73 @@ class Vector:
         self.length = int(length)
         
         if(arr == None) or (len(arr) != length):
-            self.vector = [default] * int(length)
+            self._arr = [default] * int(length)
         else:
-            self.vector = arraycopy(arr)
+            self._arr = arraycopy(arr)
+    
+    @property
+    def arr(self):
+        return self._arr
+    
+    @arr.setter
+    def arr(self, a):
+        if len(a) != len(self._arr):
+            raise ValueError("Given vector is not the same size!")
+        self._arr = a
     
     def __str__(self) -> str:
-        return str(self.vector)
+        return str(self.arr)
     
     def __getitem__(self, key):
-        return self.vector[key]
+        return self._arr[key]
     
     def __len__(self):
         return self.length
 
-    def addnum(self, x):
-        ret = []
-        for i in range(self.length):
-            ret.append(self.vector[i] + x)
-        return Vector(self.length, arr=ret)
+    def __add__(self, other):
+        if isinstance(other, Vector):
+            if (self.length != other.length):
+                raise Exception("Vectors are of unequal size!")
+        
+            ret = []
+            for i in range(self.length):
+                ret.append(self._arr[i] + other.arr[i])
+            return Vector(self.length, arr=ret)
+        
+        else:
+            ret = []
+            for i in range(self.length):
+                ret.append(self.arr[i] + other)
+            return Vector(self.length, arr=ret)
+        
+    def __sub__(self, other):
+        if isinstance(other, Vector):
+            if (self.length != other.length):
+                raise Exception("Vectors are of unequal size!")
+        
+            ret = []
+            for i in range(self.length):
+                ret.append(self._arr[i] - other.arr[i])
+            return Vector(self.length, arr=ret)
+        
+        else:
+            ret = []
+            for i in range(self.length):
+                ret.append(self._arr[i] - other)
+            return Vector(self.length, arr=ret)
 
-    def addvec(self, vec):
-        if (self.length != vec.length):
-            raise Exception("Vectors are of unequal size!")
+    def __mul__(self, other):
+        if isinstance(other, Vector):
+            if (self.length != other.length):
+                raise Exception("Vectors are of unequal size!")
         
-        ret = []
-        for i in range(self.length):
-            ret.append(self.vector[i] + vec.vector[i])
-        return Vector(self.length, arr=ret)
-    
-    def mulnum(self, x):
-        ret = []
-        for i in range(self.length):
-            ret.append(self.vector[i] * x)
-        return Vector(self.length, arr=ret)
-    
-    def dot(self, vec) -> int:
-        if (self.length != vec.length):
-            raise Exception("Vectors are of unequal size!")
+            ret = 0
+            for i in range(self.length):
+                ret += self._arr[i] * float(other.arr[i])
+            return ret
         
-        ret = 0
-        for i in range(self.length):
-            ret += self.vector[i] * float(vec.vector[i])
-        return ret
+        else:
+            ret = []
+            for i in range(self.length):
+                ret.append(self._arr[i] * other)
+            return Vector(self.length, arr=ret)

@@ -1,10 +1,12 @@
+# This class isn't properly implemented at the moment
+
 class Matrix:
-    def __init__(self, rows, cols, default=0) -> None:
+    def __init__(self, rows, cols, default=0):
         self.rows = rows
         self.cols = cols
         self.matrix = [[default for i in range(rows)] for j in range(cols)]
 
-    def __str__(self) -> str:
+    def __str__(self):
         output = ""
         for i in range(self.rows):
             for j in range(self. cols):

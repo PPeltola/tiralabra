@@ -10,3 +10,6 @@ def relu(x):
 
 def sigmoid(x):
     return 1.0 / (1 + exp(-x))
+
+def sigmoid_d(x):
+    return sigmoid(x) * (1 - sigmoid(x))
