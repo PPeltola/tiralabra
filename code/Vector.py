@@ -1,13 +1,9 @@
 from Utils import arraycopy
 
 class Vector:
-    def __init__(self, length, default=0.0, arr=None) -> None:
-        self.length = int(length)
-        
-        if(arr == None) or (len(arr) != length):
-            self._arr = [default] * int(length)
-        else:
-            self._arr = arraycopy(arr)
+    def __init__(self, arr):
+        self.length = len(arr)
+        self._arr = arraycopy(arr)
     
     @property
     def arr(self):
@@ -67,7 +63,7 @@ class Vector:
         
             ret = 0
             for i in range(self.length):
-                ret += self._arr[i] * float(other.arr[i])
+                ret += self._arr[i] * other.arr[i]
             return ret
         
         else:

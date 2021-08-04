@@ -1,8 +1,12 @@
+from HiddenLayer import HiddenLayer
 from Vector import Vector
-from Perceptron import Perceptron
+from Neuron import Neuron
+#from Perceptron import Perceptron
 import Data
 import UI
 import Loss
+import Utils
+import Activation
 
 
 # As a test, let's simulate the OR-gate with a single perceptron
@@ -34,4 +38,35 @@ labels = Data.read_labels('test')
 UI.draw_image(images[1234], "testi")
 print(labels[1234]) """
 
-print(Vector(4, arr=[1, 2, 3, 4]) * Vector(4, arr=[1, 2, 2, 2]))
+# Vector multiplication test
+#print(Vector(4, arr=[1, 2, 3, 4]) * Vector(4, arr=[1, 2, 2, 2]))
+
+# Neuron output test
+""" n = Neuron(Utils.rand_array(4), Activation.sigmoid, Activation.sigmoid_d, 3)
+x = Vector(4, arr=Utils.rand_array(4))
+print(n)
+print(x)
+print(n.output(x)) """
+
+# rand_array and normalization test
+""" arr = Utils.rand_array(10, -5, 15)
+print(arr)
+print(Utils.normalize(arr, -5, 15)) """
+
+# Testing some hidden layer basic functionality
+""" images = Data.read_images('test')
+labels = Data.read_labels('test')
+
+weights = [Utils.rand_array(784, -1, 1) for _ in range(10)]
+hl_a = HiddenLayer(10, 784, weights,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
+for i in range(9):
+    img = Vector(Utils.normalize(Utils.flatten_2d(images[i]), 0, 255))
+    o = hl_a.generate_output(img)
+    print("Picture " + str(i + 1) + ": " + str(o) + ", correct answer is " + str(labels[i])) """
+
+# Array flattening testing
+""" testarr = [[1, 2, 7, 8], [3, 4, 9, 10], [5, 6, 11, 12]]
+testarr = Utils.flatten_2d(testarr)
+print(testarr)
+testarr = Utils.deflatten_2d(testarr, 4, 3)
+print(testarr) """

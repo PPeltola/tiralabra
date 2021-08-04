@@ -9,7 +9,9 @@ def relu(x):
     return max(0.0, x)
 
 def sigmoid(x):
-    return 1.0 / (1 + exp(-x))
+    if x < 0:
+        return 1 - 1 / (1 + exp(x))
+    return 1 / (1 + exp(-x))
 
 def sigmoid_d(x):
     return sigmoid(x) * (1 - sigmoid(x))

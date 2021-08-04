@@ -1,8 +1,8 @@
 from Vector import Vector
 
 class Neuron:
-    def __init__(self, input_amount, activation, activation_d, bias=1.0):
-        self._weights = Vector(input_amount)
+    def __init__(self, weights, activation, activation_d, bias):
+        self._weights = Vector(weights)
         self.activation = activation
         self.activation_d = activation_d
         self._bias = bias
@@ -24,3 +24,17 @@ class Neuron:
     @bias.setter
     def bias(self, b):
         self._bias = b
+
+    # Mainly for debugging purposes
+    def __str__(self):
+        opstr = ""
+        opstr += "Weights: " +  str(self.weights) + "\n"
+        opstr += "Bias: " + str(self.bias)# + "\n"
+        #opstr += "Activation function: " + 
+        return opstr
+    
+    def output(self, input):
+        if not isinstance(input, Vector):
+            raise ValueError("Given input is not a vector!")
+        #print(input * self.weights)
+        return self.activation(input * self.weights + self.bias)
