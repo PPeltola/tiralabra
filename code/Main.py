@@ -2,7 +2,7 @@ from HiddenLayer import HiddenLayer
 from Vector import Vector
 from Neuron import Neuron
 #from Perceptron import Perceptron
-import Data
+import IO
 import UI
 import Loss
 import Utils
@@ -54,15 +54,22 @@ print(arr)
 print(Utils.normalize(arr, -5, 15)) """
 
 # Testing some hidden layer basic functionality
-""" images = Data.read_images('test')
-labels = Data.read_labels('test')
+images = IO.read_images('test')
+labels = IO.read_labels('test')
 
 weights = [Utils.rand_array(784, -1, 1) for _ in range(10)]
 hl_a = HiddenLayer(10, 784, weights,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
+
+#IO.save_layer(hl_a, "test")
+hl_b = IO.load_layer("test")
+
 for i in range(9):
     img = Vector(Utils.normalize(Utils.flatten_2d(images[i]), 0, 255))
-    o = hl_a.generate_output(img)
-    print("Picture " + str(i + 1) + ": " + str(o) + ", correct answer is " + str(labels[i])) """
+    o1 = hl_a.generate_output(img)
+    o2 = hl_b.generate_output(img)
+    #print("Picture " + str(i + 1) + ": " + str(o1) + ", " + str(o2) + ", correct answer is " + str(labels[i]))
+    print(o1)
+    print(o2)
 
 # Array flattening testing
 """ testarr = [[1, 2, 7, 8], [3, 4, 9, 10], [5, 6, 11, 12]]

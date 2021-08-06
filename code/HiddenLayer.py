@@ -24,3 +24,12 @@ class HiddenLayer:
         for n in self._neurons:
             op.append(n.output(input))
         return op
+    
+    # Apparently this is uselsess, since pickle can just save whole layers by itself
+    """ def save_output(self):
+        weights = []
+        biases = []
+        for n in self._neurons:
+            weights.append(n.weights.arr)
+            biases.append(n.bias)
+        return {"weights":weights, "biases":biases} """
