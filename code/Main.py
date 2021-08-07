@@ -53,8 +53,8 @@ print(n.output(x)) """
 print(arr)
 print(Utils.normalize(arr, -5, 15)) """
 
-# Testing some hidden layer basic functionality
-images = IO.read_images('test')
+# Testing some hidden layer basic functionality and saving/loading
+""" images = IO.read_images('test')
 labels = IO.read_labels('test')
 
 weights = [Utils.rand_array(784, -1, 1) for _ in range(10)]
@@ -69,7 +69,7 @@ for i in range(9):
     o2 = hl_b.generate_output(img)
     #print("Picture " + str(i + 1) + ": " + str(o1) + ", " + str(o2) + ", correct answer is " + str(labels[i]))
     print(o1)
-    print(o2)
+    print(o2) """
 
 # Array flattening testing
 """ testarr = [[1, 2, 7, 8], [3, 4, 9, 10], [5, 6, 11, 12]]
@@ -77,3 +77,21 @@ testarr = Utils.flatten_2d(testarr)
 print(testarr)
 testarr = Utils.deflatten_2d(testarr, 4, 3)
 print(testarr) """
+
+# Let's test multi-layer nets
+images = IO.read_images('test')
+labels = IO.read_labels('test')
+
+weights_a = [Utils.rand_array(784, -1, 1) for _ in range(10)]
+weights_b = [Utils.rand_array(10, -1, 1) for _ in range(10)]
+hl_a = HiddenLayer(10, 784, weights_a,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
+hl_b = HiddenLayer(10, 10, weights_b,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
+
+for i in range(9):
+    img = Vector(Utils.normalize(Utils.flatten_2d(images[i]), 0, 255))
+    o_a = hl_a.generate_output(img)
+    o_b = hl_b.generate_output(o_a)
+    #print("Picture " + str(i + 1) + ": " + str(o1) + ", " + str(o2) + ", correct answer is " + str(labels[i]))
+    print(o_a)
+    print(o_b)
+    print("----")

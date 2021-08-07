@@ -1,3 +1,4 @@
+from Vector import Vector
 from Neuron import Neuron
 
 class HiddenLayer:
@@ -23,7 +24,7 @@ class HiddenLayer:
         op = []
         for n in self._neurons:
             op.append(n.output(input))
-        return op
+        return Vector(op)
     
     # Apparently this is uselsess, since pickle can just save whole layers by itself
     """ def save_output(self):
