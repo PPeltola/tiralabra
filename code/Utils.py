@@ -36,3 +36,20 @@ def normalize(arr, min, max):
     for x in arr:
         op.append((x - min) / (max - min))
     return op
+
+def onehot_label_arr(num):
+    if num > 9:
+        raise ValueError("Not a digit!")
+    
+    arr = [0] * 10
+    arr[num] = 1
+    return arr
+
+def make_prediction(arr):
+    largest = 0
+    largest_i = 0
+    for i in range(len(arr)):
+        if arr[i] > largest:
+            largest = arr[i]
+            largest_i = i
+    return largest_i

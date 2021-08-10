@@ -2,10 +2,12 @@ from Vector import Vector
 
 class Neuron:
     def __init__(self, weights, activation, activation_d, bias):
+        #self.id = id
         self._weights = Vector(weights)
         self.activation = activation
         self.activation_d = activation_d
         self._bias = bias
+        self.last_output = 0
     
     @property
     def weights(self):
@@ -37,4 +39,10 @@ class Neuron:
         if not isinstance(input, Vector):
             raise ValueError("Given input is not a vector!")
         #print(input * self.weights)
-        return self.activation(input * self.weights + self.bias)
+        op = self.activation(input * self.weights + self.bias)
+        self.last_output = op
+        return op
+    
+    def adjust_weights(self, adj, rate):
+        a = Vector(adj)
+        self.weights = self.weights - a * rate

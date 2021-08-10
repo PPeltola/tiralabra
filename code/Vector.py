@@ -32,13 +32,13 @@ class Vector:
             ret = []
             for i in range(self.length):
                 ret.append(self._arr[i] + other.arr[i])
-            return Vector(self.length, arr=ret)
+            return Vector(arr=ret)
         
         else:
             ret = []
             for i in range(self.length):
                 ret.append(self.arr[i] + other)
-            return Vector(self.length, arr=ret)
+            return Vector(arr=ret)
         
     def __sub__(self, other):
         if isinstance(other, Vector):
@@ -48,13 +48,13 @@ class Vector:
             ret = []
             for i in range(self.length):
                 ret.append(self._arr[i] - other.arr[i])
-            return Vector(self.length, arr=ret)
+            return Vector(arr=ret)
         
         else:
             ret = []
             for i in range(self.length):
                 ret.append(self._arr[i] - other)
-            return Vector(self.length, arr=ret)
+            return Vector(arr=ret)
 
     def __mul__(self, other):
         if isinstance(other, Vector):
@@ -70,4 +70,4 @@ class Vector:
             ret = []
             for i in range(self.length):
                 ret.append(self._arr[i] * other)
-            return Vector(self.length, arr=ret)
+            return Vector(arr=ret)
