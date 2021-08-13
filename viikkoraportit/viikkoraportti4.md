@@ -7,4 +7,7 @@ Tässä ovat eri numeroita tunnistavien neuronien painot kuvaamastani karvalakki
 ### Nolla
 ![0](kuvat/vk4/w0.png =140x140)
 
+<img src="kuvat/vk4/w0.png" align="left" height="140" width="140" >
+
+
 Tällä viikolla käytin aikaa projektiin n. 6 tuntia
