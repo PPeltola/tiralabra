@@ -5,6 +5,6 @@ Tällä viikolla en ehtinyt tekemään projektia kuin yhtenä päivänä, mutta 
 Tässä ovat eri numeroita tunnistavien neuronien painot kuvaamastani karvalakkimallista visualisoituna, tummempi pikseli tarkoittaa negatiivista painoa kyseiselle pikselille ja vaalea positiivista painoa:
 
 ### Nolla
-![0](kuvat/vk4/w0.png)
+![0](kuvat/vk4/w0.png =140x140)
 
 Tällä viikolla käytin aikaa projektiin n. 6 tuntia
