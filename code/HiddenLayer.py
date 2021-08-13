@@ -21,7 +21,7 @@ class HiddenLayer:
     def neurons(self):
         return self._neurons
 
-    @ neurons.setter
+    @neurons.setter
     def neurons(self, n):
         self._neurons = n
 

@@ -31,12 +31,21 @@ def default_vector(size, value):
     arr = [value] * size
     return Vector(arr)
 
-def normalize(arr, min, max):
+def normalize(arr, minimum, maximum):
     op = []
     for x in arr:
-        op.append((x - min) / (max - min))
+        op.append((x - minimum) / (maximum - minimum))
     return op
 
+def fit_arr(arr, minimum, maximum, mode='int'):
+    narr = normalize(arr, min(arr), max(arr))
+    op = []
+    for x in narr:
+        if mode == 'float':
+            op.append(minimum + x * maximum)
+        else:
+            op.append(int(round(minimum + x * maximum)))
+    return op
 def onehot_label_arr(num):
     if num > 9:
         raise ValueError("Not a digit!")

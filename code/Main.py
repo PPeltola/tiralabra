@@ -110,13 +110,14 @@ for n in hl_b.neurons:
     print(n.weights) """
 
 # Let's try how well a single one-layer 10-neuron net performs!
-images = IO.read_images('training')
+""" images = IO.read_images('training')
 labels = IO.read_labels('training')
 
 test_images = IO.read_images('test')
 test_labels = IO.read_labels('test')
 
-weights_a = [Utils.rand_array(784, 0, 1) for _ in range(10)]
+#weights_a = [Utils.rand_array(784, 0, 1) for _ in range(10)]
+weights_a = [[0] * 784] * 10
 hl_a = HiddenLayer(10, 784, weights_a,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
 
 LEARNING_RATE = 0.05
@@ -140,4 +141,19 @@ for (i, l) in zip(test_images, test_labels):
     if pred == l:
         right_amount += 1
 
-print(right_amount / 10000)
+IO.save_layer(hl_a, "test1_1")
+
+print(right_amount / 10000) """
+
+# Visualize weights!
+
+hl_a = IO.load_layer("test1_1")
+
+i = 0
+for n in hl_a.neurons:
+    weights = n.weights
+    weights = Utils.fit_arr(weights, 0, 255)
+    #print(weights)
+    IO.save_image(Utils.deflatten_2d(weights, 28, 28), "w" + str(i))
+    i += 1
+
