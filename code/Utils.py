@@ -19,7 +19,7 @@ def flatten_2d(a):
 
 def deflatten_2d(a, width, height):
     if len(a) != width * height:
-        raise ValueError("Length doesn't match give dimensions!")
+        raise ValueError("Length doesn't match given dimensions!")
     
     op = []
     for i in range(height):
@@ -46,6 +46,7 @@ def fit_arr(arr, minimum, maximum, mode='int'):
         else:
             op.append(int(round(minimum + x * maximum)))
     return op
+
 def onehot_label_arr(num):
     if num > 9:
         raise ValueError("Not a digit!")
