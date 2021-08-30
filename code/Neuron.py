@@ -46,3 +46,6 @@ class Neuron:
     def adjust_weights(self, adj, rate):
         a = Vector(adj)
         self.weights = self.weights - a * rate
+
+    def adjust_bias(self, adj, rate):
+        self.bias = self.bias - adj * rate

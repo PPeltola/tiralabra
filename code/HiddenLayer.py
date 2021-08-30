@@ -27,6 +27,9 @@ class HiddenLayer:
 
     def __getitem__(self, key):
         return self._neurons[key]
+    
+    def __len__(self):
+        return self.size
         
     def generate_output(self, input):
         if len(input) != self.input_size:

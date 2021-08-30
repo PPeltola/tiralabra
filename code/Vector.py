@@ -15,7 +15,7 @@ class Vector:
             raise ValueError("Given vector is not the same size!")
         self._arr = a
     
-    def __str__(self) -> str:
+    def __str__(self):
         return str(self.arr)
     
     def __getitem__(self, key):

@@ -8,6 +8,9 @@ def heaviside(x):
 def relu(x):
     return max(0.0, x)
 
+def relu_d(x):
+    return heaviside(x)
+
 def sigmoid(x):
     if x < 0:
         return 1 - 1 / (1 + exp(x))
