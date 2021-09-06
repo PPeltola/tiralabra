@@ -1,11 +1,4 @@
 def arraycopy(arr):
-    """ new = []
-    for i in range(len(arr)):
-        if isinstance(arr[i], list):
-            new.append(arraycopy(arr[i]))
-        else:
-            new.append(arr[i])
-    return new """
     return list(arr)
 
 def rand_array(n, min=0.0, max=1.0):
@@ -35,7 +28,7 @@ def default_vector(size, value):
 def normalize(arr, minimum, maximum):
     op = []
     for x in arr:
-        op.append((x - minimum) / (maximum - minimum) + 0.00001)
+        op.append((x - minimum) / (maximum - minimum))
     return op
 
 def fit_arr(arr, minimum, maximum, mode='int'):

@@ -1,13 +1,11 @@
 from HiddenLayer import HiddenLayer
 from Vector import Vector
-from Neuron import Neuron
-#from Perceptron import Perceptron
 import IO
-#import UI
 import Loss
 import Utils
 import Activation
 import Backpropagation
+import Rate
 
 
 # As a test, let's simulate the OR-gate with a single perceptron
@@ -18,12 +16,7 @@ training.append(Vector(2, arr=[0, 1]))
 training.append(Vector(2, arr=[0, 0]))
 
 labels = Vector(4, arr=[1, 1, 1, 0])
-
-tron = Perceptron(2, 100, 0.05)
-tron.train(training, labels)
-
-both_true = Vector(2, arr=[1, 1])
-right_true = Vector(2, arr=[0, 1])
+from Vector 
 left_true= Vector(2, arr=[1, 0])
 both_false = Vector(2, arr=[0, 0])
 
@@ -138,7 +131,7 @@ hl_a = HiddenLayer(10, 784, weights_a,  Activation.sigmoid, Activation.sigmoid_d
 
 LEARNING_RATE = 0.05
 
-iter = 1
+iter = 1eturn super().setUp()
 prev_correct = 0
 #old_weights = weights_a
 while True:
@@ -185,7 +178,7 @@ for n in hl_a.neurons:
 
 
 
-# Final boss: a 16-16-10 multi-layer net!
+# Final boss: a 32-16-10 multi-layer net!
 images = IO.read_images('training')
 labels = IO.read_labels('training')
 test_images = IO.read_images('test')
@@ -198,84 +191,109 @@ labels_oh = []
 test_images_flat = []
 
 for (i, l) in zip(images, labels):
-    images_flat.append(Vector(Utils.normalize(Utils.flatten_2d(i), 0, 255)))
-    #images_flat.append(Vector(Utils.flatten_2d(i)))
+    images_flat.append(Vector(Utils.normalize(Utils.flatten_2d(i), 0, 1)))
     labels_oh.append(Utils.onehot_label_arr(l))
 
 for i in test_images:
-    test_images_flat.append(Vector(Utils.normalize(Utils.flatten_2d(i), 0, 255)))
-    #test_images_flat.append(Vector(Utils.flatten_2d(i)))
+    test_images_flat.append(Vector(Utils.normalize(Utils.flatten_2d(i), 0, 1)))
 
 print("Images & labels processed!")
 
+# Don't change these two
+IMAGE_INPUT_SIZE = 784
+OUTPUT_LAYER_SIZE = 10
+
+# These define how many neurons in layers A & B
+LAYER_A_SIZE = 32
+LAYER_B_SIZE = 16
+
 # Initialize weights and layer
-#weights748_16 = [[0.5] * 784] * 16
-#weights16_16 = [[0.5] * 16] * 16
-#weights16_10 = [[0.5] * 16] * 10
-weights748_16 = [Utils.rand_array(784, 0, 1) for _ in range(16)]
-weights16_16 = [Utils.rand_array(16, 0, 1) for _ in range(16)]
-weights16_10 = [Utils.rand_array(16, 0, 1) for _ in range(10)]
+weights_a = [Utils.rand_array(IMAGE_INPUT_SIZE, -1, 1) for _ in range(LAYER_A_SIZE)]
+weights_b = [Utils.rand_array(LAYER_A_SIZE, -1, 1) for _ in range(LAYER_B_SIZE)]
+weights_op = [Utils.rand_array(LAYER_B_SIZE, -1, 1) for _ in range(OUTPUT_LAYER_SIZE)]
 
-hl_a = HiddenLayer(16, 784, weights748_16,  Activation.relu, Activation.relu_d, Loss.quadratic, Loss.quadratic_d, 0.1)
-hl_b = HiddenLayer(16, 16, weights16_16,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
-opl = HiddenLayer(10, 16, weights16_10,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0.1)
+hl_a = HiddenLayer(LAYER_A_SIZE, IMAGE_INPUT_SIZE, weights_a,  Activation.sigmoid, Activation.sigmoid_d, Loss.mean_quadratic, Loss.mean_quadratic_d, 0)
+hl_b = HiddenLayer(LAYER_B_SIZE, LAYER_A_SIZE, weights_b,  Activation.sigmoid, Activation.sigmoid_d, Loss.mean_quadratic, Loss.mean_quadratic_d, 0)
+opl = HiddenLayer(OUTPUT_LAYER_SIZE, LAYER_B_SIZE, weights_op,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0)
 
-ITERATION_CAP = 5
+ITERATION_CAP = 20
 ACCURACY_CAP = 9800
 
-LEARNING_RATE = 0.1
-BATCH_SIZE = 30
+LEARNING_DECAY_SCALAR = 0.0025
+BATCH_SIZE = 100
 
+learning_rate = 0.05
 iter = 1
 prev_correct = 0
-#old_weights = weights
+
 while True:
     print("Iteration: " + str(iter))
 
+    learning_rate = Rate.decaying(learning_rate, iter, LEARNING_DECAY_SCALAR)
+
+    print("Learning rate: " + str(learning_rate))
+    
     j = 1
+    batchtracker = 0
+    img_sum = Vector([0] * IMAGE_INPUT_SIZE)
+    lab_sum = Vector([0] * OUTPUT_LAYER_SIZE)
+    oa_sum = Vector([0] * LAYER_A_SIZE)
+    ob_sum = Vector([0] * LAYER_B_SIZE)
+    op_sum = Vector([0] * OUTPUT_LAYER_SIZE)
+
     for (img, lab) in zip(images_flat, labels_oh):
         o_a = hl_a.generate_output(img)
-        o_b = hl_b.generate_output(o_a)
-        output = opl.generate_output(o_b)
-        opl_backprop = Backpropagation.output_layer_backpropagate(opl, output, lab, o_b, LEARNING_RATE)
-        hl_b_backprop = Backpropagation.hidden_layer_backpropagate(hl_b, o_a, o_b, opl_backprop, LEARNING_RATE)
-        hl_a_backprop = Backpropagation.hidden_layer_backpropagate(hl_a, img, o_a, hl_b_backprop, LEARNING_RATE)
+        o_b = hl_b.generate_output(o_a['op'])
+        output = opl.generate_output(o_b['op'])
+
+        img_sum = img_sum + img
+        lab_sum = lab_sum + Vector(lab)
+        oa_sum = oa_sum + o_a['op']
+        ob_sum = ob_sum + o_b['op']
+        op_sum = op_sum + output['op']
+
+        batchtracker = batchtracker + 1
+
+        if batchtracker == BATCH_SIZE:
+            img_sum = img_sum * (1 / BATCH_SIZE)
+            lab_sum = lab_sum * (1 / BATCH_SIZE)
+            oa_sum = oa_sum * (1 / BATCH_SIZE)
+            ob_sum = ob_sum * (1 / BATCH_SIZE)
+            op_sum = op_sum * (1 / BATCH_SIZE)
+
+            #print(opl.loss(lab_sum, op_sum))
+
+            opl_backprop = Backpropagation.output_layer_backpropagate(opl, op_sum, lab, ob_sum, learning_rate)
+            hl_b_backprop = Backpropagation.hidden_layer_backpropagate(hl_b, oa_sum, ob_sum, opl_backprop, learning_rate)
+            hl_a_backprop = Backpropagation.hidden_layer_backpropagate(hl_a, img, oa_sum, hl_b_backprop, learning_rate)
+
+            img_sum = Vector([0] * IMAGE_INPUT_SIZE)
+            lab_sum = Vector([0] * OUTPUT_LAYER_SIZE)
+            oa_sum = Vector([0] * LAYER_A_SIZE)
+            ob_sum = Vector([0] * LAYER_B_SIZE)
+            op_sum = Vector([0] * OUTPUT_LAYER_SIZE)
+            batchtracker = 0
+
     
-        """ if j % 1000 == 0:
+        if j % 10000 == 0:
             print("    " + str(j))
-        j += 1 """
-    
-    """ print("----")
-    for n in hl_a.neurons:
-        print(n.weights)
-    print("----")
-    for n in hl_b.neurons:
-        print(n.weights)
-    print("----")
-    for n in opl.neurons:
-        print(n.weights) """
+        j += 1
 
     print("Iteration " + str(iter) + " done! Now testing accuracy...")
 
     right_amount = 0
     for (img_t, lab_t) in zip(test_images_flat, test_labels):
-        oa = hl_a.generate_output(img_t)
-        ob = hl_b.generate_output(oa)
-        op = opl.generate_output(ob)
+        oa = hl_a.generate_output(img_t)['op']
+        ob = hl_b.generate_output(oa)['op']
+        op = opl.generate_output(ob)['op']
         pred = Utils.make_prediction(op)
-        """ print("----")
-        print(oa)
-        print(ob)
-        print(op)
-        print(pred)
-        print(lab_t) """
         if pred == lab_t:
             right_amount += 1
     
     print("Correct predictions: " + str(right_amount))
 
-    """ if (iter >= ITERATION_CAP):
-        break """
+    if (iter >= ITERATION_CAP):
+        break
     
     if (prev_correct >= ACCURACY_CAP):
         break

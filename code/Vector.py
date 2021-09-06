@@ -23,6 +23,12 @@ class Vector:
     
     def __len__(self):
         return self.length
+    
+    def __eq__(self, other):
+        if isinstance(other, Vector):
+            return self._arr == other.arr
+        else:
+            raise Exception("Not a vector!")
 
     def __add__(self, other):
         if isinstance(other, Vector):
@@ -71,3 +77,6 @@ class Vector:
             for i in range(self.length):
                 ret.append(self._arr[i] * other)
             return Vector(arr=ret)
+
+    def __sum__(self):
+        return sum(self._arr)

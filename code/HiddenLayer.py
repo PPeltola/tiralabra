@@ -36,15 +36,9 @@ class HiddenLayer:
             raise ValueError("Input is not of the defined length!")
         
         op = []
+        lin = []
         for n in self._neurons:
-            op.append(n.output(input))
-        return Vector(op)
-    
-    # Apparently this is uselsess, since pickle can just save whole layers by itself
-    """ def save_output(self):
-        weights = []
-        biases = []
-        for n in self._neurons:
-            weights.append(n.weights.arr)
-            biases.append(n.bias)
-        return {"weights":weights, "biases":biases} """
+            output = n.output(input)
+            op.append(output['op'])
+            lin.append(output['lin'])
+        return {'op':Vector(op), 'lin':Vector(lin)}
