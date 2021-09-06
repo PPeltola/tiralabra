@@ -1,0 +1,5 @@
+6.9.
+
+Tällä viikolla koitin parhaani mukaan saada monen kerroksen verkon tarkkuutta parannettua. Implementoin tätä varten batchingin sekä koulutusiteraatioiden myötä pienenevän learning raten. Sain parhammillaan tarkkuusprosentiksi n. 71, eli en valitettavasti yltänyt nelosviikon kymmenen neuronin yhden kerroksen luokittimen tasolle. Tein myös hieman refaktorointia ja siivosin koodia. Tein myös pari testiä, mutta loppupalautuksessa ei paljoa testejä tosiaan ole. Myös dokumentaatio on jokseenkin pikaisesti kasattua. Tiedän että molemmat varmaankin laskevat arvosanaani, mutta koin että oman oppimiseni kannalta fokuksen ohjelman kehittämisessä pitäminen oli paras ratkaisu. Projekti olikin todella opettavainen kokemus, ja ajattelin vielä viilailla sitä eteenpäin kurssin jälkeenkin. Eräs mahdollinen parannus olisi mielekkäämmän loss-funktion implementointi, esim. softmax cross entropy on ymmärtääkseni tähän ongelmaan hyvä. Tosiaan, kiitos kurssista ja hauskaa syksyn alkua!
+
+Tällä viikolla käytin projektiin n. 13 tuntia
