@@ -216,13 +216,20 @@ hl_a = HiddenLayer(LAYER_A_SIZE, IMAGE_INPUT_SIZE, weights_a,  Activation.sigmoi
 hl_b = HiddenLayer(LAYER_B_SIZE, LAYER_A_SIZE, weights_b,  Activation.sigmoid, Activation.sigmoid_d, Loss.mean_quadratic, Loss.mean_quadratic_d, 0)
 opl = HiddenLayer(OUTPUT_LAYER_SIZE, LAYER_B_SIZE, weights_op,  Activation.sigmoid, Activation.sigmoid_d, Loss.quadratic, Loss.quadratic_d, 0)
 
-ITERATION_CAP = 20
-ACCURACY_CAP = 9800
+# ---- Change these if you want to play around with the program ----
 
+# These decide when the training stops
+ITERATION_CAP = 20 # after 20 iterations or
+ACCURACY_CAP = 6500 # at 65% accuracy
+
+# These adjust the learning process
+INITIAL_LEARNING_RATE = 0.05
 LEARNING_DECAY_SCALAR = 0.0025
 BATCH_SIZE = 100
 
-learning_rate = 0.05
+# ----------------
+
+learning_rate = INITIAL_LEARNING_RATE
 iter = 1
 prev_correct = 0
 
@@ -304,6 +311,6 @@ while True:
     prev_correct = right_amount
     iter = iter + 1
 
-IO.save_layer(hl_a, "test3_a")
-IO.save_layer(hl_b, "test3_b")
-IO.save_layer(opl, "test3_c")
+IO.save_layer(hl_a, "test_layer_a")
+IO.save_layer(hl_b, "test_layer_b")
+IO.save_layer(opl, "test_layer_c")
